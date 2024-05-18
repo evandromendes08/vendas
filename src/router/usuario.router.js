@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const usuarioController = require("../controller/usuario.controller");
-const { removeUserAddressController, removeUserFavProductController } = require("../controller/database/usuario.controller");
+const { removeUserAddressController, removeUserFavProductController } = require("../controller/usuario.controller");
 
 //rotas get
-router.get('/findById:id', usuarioController.findUserByController);
-router.get('/findAll', usuarioController.findAllUserController);
+router.get('/findById/:id', usuarioController.findUserByIdController);
+router.get('/findAll', usuarioController.findAllUsersController);
 
 //rotas post
 router.post('/create', usuarioController.createUserController);
 router.post('addAdress/:id', usuarioController.addUserAddressController);
-router.post('/addFavProduct/:id',usuarioController.addUserFavController);
+router.post('/addFavProduct/:id',usuarioController.addUserFavProductController);
 
 //rotas put
 router.put('/update/:id', usuarioController.updateUserController);
@@ -18,10 +18,10 @@ router.put('/update/:id', usuarioController.updateUserController);
 //rotas delete
 router.delete('/remove/:id', usuarioController.removeUserController);
 router.delete('/removeAdress', usuarioController.removeUserAddressController);
-router.delete('/removeFavProduct', usuarioController.removeUserFavProduct);
+router.delete('/removeFavProduct', usuarioController.removeUserFavProductController);
 
 module.exports = {
     router,
     removeUserAddressController,
     removeUserFavProductController,
-};
+}

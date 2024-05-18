@@ -15,8 +15,8 @@ app.use("/usuario", usuario);//chamando as rodas do usuario
 app.get("/", (req, res) => {
     res.send({
         message: "Bem vindo a nossa Pizzaria"
-    });
-})
+    })
+});
 
 app.listen(port, () => {
     console.log(`Servidor rodando em: http://localhost:${port}`);

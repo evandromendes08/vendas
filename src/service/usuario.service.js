@@ -1,5 +1,4 @@
 const Usuario = require("../model/Usuario");
-const usuario = require("../model/Usuario");
 
 const findUserByIdService = (id) => {
     return Usuario.findById(id);
