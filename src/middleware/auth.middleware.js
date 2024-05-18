@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
         res.status(401).send({message: "O token mal formado!"});
     }
 
-    jwt.verify(token, "asdfasdfaç124asdfa1244656765", async (err, decoded) => {
+    jwt.verify(token, process.env.SECRET, async (err, decoded) => {
         if(err){
             res.status(500).send({message: "O token inválido!"}); 
         }
