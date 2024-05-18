@@ -1,6 +1,6 @@
 const express =require("express");
-const connectToDatabase = require("./src/database/database");
-const usuario = require("./src/router/usuario.router");
+const connectToDatabase = require("./src/database/database");//arquivo de conexão com o banco
+const usuario = require("./src/router/usuario.router");//rota do usuario
 
 const app = express();
 
@@ -8,9 +8,9 @@ const port = 4000;
 
 app.use(express.json());
 
-connectToDatabase();
+connectToDatabase();//conectando como banco
 
-app.use("/usuario", usuario);
+app.use("/usuario", usuario);//chamando as rodas do usuario
 
 app.get("/", (req, res) => {
     res.send({
