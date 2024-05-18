@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const usuarioController = require("../controller/usuario.controller");
-const { removeUserAddressController, removeUserFavProduct } = require("../controller/database/usuario.controller");
+const { removeUserAddressController, removeUserFavProductController } = require("../controller/database/usuario.controller");
 
 //rotas get
 router.get('/findById:id', usuarioController.findUserByController);
@@ -23,5 +23,5 @@ router.delete('/removeFavProduct', usuarioController.removeUserFavProduct);
 module.exports = {
     router,
     removeUserAddressController,
-    removeUserFavProduct,
+    removeUserFavProductController,
 };
