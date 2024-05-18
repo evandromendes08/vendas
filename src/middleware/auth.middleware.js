@@ -5,23 +5,23 @@ module.exports = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if(!authHeader){
-        res.status(401).send({message: "O token não foi informado!"});
+        return res.status(401).send({message: "O token não foi informado!"});
     }
-    const parts = authHeader.split(" ")//Bearer, <token>
+    const parts = authHeader.split(" ");//Bearer, <token>
 
-    if(parts.leng != 2){
-        res.status(401).send({message: "O token não inválido!"});
+    if(parts.length !== 2){
+        return res.status(401).send({message: "Token inválido!"});
     }
 
-    const[schema, token] = parts;
+    const [schema, token] = parts;
 
-    if(!/^Bearer$/iItest(schema)){
-        res.status(401).send({message: "O token mal formado!"});
-    }
+     if(!/^Bearer$/i.test(schema)){
+        return res.status(401).send({message: "O token mal formado!"});
+     }
 
     jwt.verify(token, process.env.SECRET, async (err, decoded) => {
         if(err){
-            res.status(500).send({message: "O token inválido!"}); 
+            return res.status(500).send({message: "O token inválido!"}); 
         }
         const user = await findUserByIdService(decoded.id);
 

@@ -4,6 +4,7 @@ const connectToDatabase = require("./src/database/database");//arquivo de conexÃ
 
 const usuario = require("./src/router/usuario.router");//rota do usuario
 const auth = require("./src/router/auth.router");//rota do auth
+const produto = require("./src/router/produto.router");//rota do produto
 
 const app = express();
 
@@ -13,8 +14,9 @@ app.use(express.json());
 
 connectToDatabase();//conectando como banco
 
-app.use("/usuario", usuario);//chamando as rotas do usuario
+app.use("/usuario", usuario.router);//chamando as rotas do usuario
 app.use("/auth", auth);//chamando as rotas do auth
+app.use("/produto", produto);//chamando as rotas do produto
 
 app.get("/", (req, res) => {
     res.send({
@@ -25,5 +27,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor rodando em: http://localhost:${port}`);
 })
-
-module.export = router;

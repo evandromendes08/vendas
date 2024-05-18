@@ -1,22 +1,53 @@
 const produtoService = require("../service/produto.service");
 
 const findProductByIdController = async (req, res) => {
-    return Produto.findById(id);
+    try{
+        res.send(await produtoService.findProductByIdService(req.params.id));
+    }catch (err){
+        console.log(`erro: ${err.message}`);
+        return res.status(500).send({message: `Erro inesperado tente novamente`});
+    } 
 }
 const findAllProductsController = async (req, res) => {
-    return Produto.find();
+    try{
+        res.send(await produtoService.findAllProductsService());
+    }catch (err){
+        console.log(`erro: ${err.message}`);
+        return res.status(500).send({message: `Erro inesperado tente novamente`});
+    } 
 }
 
 const createProductController = async (req, res) => {
-    return Produto.create(body);
+    try{
+        const corpo = {
+            ...req.body,
+            userId: req.userId,
+            createAt: new Date(),
+        }
+
+        res.send(await produtoService.createProductService(corpo));
+    }catch (err){
+        console.log(`erro: ${err.message}`);
+        return res.status(500).send({message: `Erro inesperado tente novamente`});
+    } 
 }
 
 const updateProductController = async (req, res) => {
-    return Produto.findByIdUpdate(id, body, {returnDocument: "after"});
+    try{
+        res.send(await produtoService.updateProductService(req.params.id, req.body));
+    }catch (err){
+        console.log(`erro: ${err.message}`);
+        return res.status(500).send({message: `Erro inesperado tente novamente`});
+    } 
 }
 
 const deleteProductController = async (req, res) => {
-    return Produto.findByIdAndRemove(id);
+    try{
+        res.send(await produtoService.deleteProductService(req.params.id));
+    }catch (err){
+        console.log(`erro: ${err.message}`);
+        return res.status(500).send({message: `Erro inesperado tente novamente`});
+    } 
 }
 
 module.exports = {
