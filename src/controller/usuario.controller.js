@@ -67,12 +67,13 @@ const removeUserController = async (req, res) => {
         const deleteUser = await userService.removeUserService(req.params.id);
 
         console.log(deleteUser);
-        res.status(200).send({message: `Sucesso, Usuário deletado!`});
-        /*if(deleteUser.deletedCount > 0){
-            res.status(200).send({message: `Sucesso, Usuário deletado!`});
-        }else{
+        
+        if(deleteUser.deletedCount == null){
             res.status(404).send({message: `Usuário não encontrado, tente novamente!`});
-        }*/
+            
+        }else{
+            res.status(200).send({message: `Sucesso, Usuário deletado!`});
+        }
 
     }catch (err){
         console.log(`erro: ${err.message}`);

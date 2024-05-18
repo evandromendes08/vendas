@@ -1,4 +1,4 @@
-const express =require("express");
+const express = require("express");
 const connectToDatabase = require("./src/database/database");//arquivo de conexão com o banco
 const usuario = require("./src/router/usuario.router");//rota do usuario
 
@@ -21,3 +21,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor rodando em: http://localhost:${port}`);
 })
+
+module.export = router;
