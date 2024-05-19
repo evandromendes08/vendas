@@ -54,8 +54,8 @@
                             "type":"array",
                             "items":{
                                 "type":"object",
-                                "$ref":"#/components/schemas/Usuario"
-                            }
+                                "$ref": "#/components/schemas/Usuario"
+                                }
                         }
                     }
                 }
