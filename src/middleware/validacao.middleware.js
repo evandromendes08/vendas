@@ -124,6 +124,27 @@ const validaId = (req, res, next) => {
     }
 }
 
+const validaLogin = (req, res, next) => {
+    let erros = []; //variavel para acumular erros
+    
+    if(!req.body.email){
+        erros.push("email");
+    }
+    if(!req.body.senha){
+        erros.push("senha");
+    }
+    
+    if(erros.length == 0){
+        return next();
+    }else{
+        if(erros.length > 1){
+            return res.status(400).send({ message: `Os campos ${erros} devem ser preenchidos!`}); 
+        }else{
+        return res.status(400).send({ message: `O campo ${erros} deve ser preenchido!`}); 
+        }
+    } 
+}
+
 module.exports = {
     validaUsuario,
     validaProduto,
@@ -131,5 +152,6 @@ module.exports = {
     validaPedido,
     validaCategoria,
     validaCarrinho,
-    validaId
+    validaId,
+    validaLogin
 }
