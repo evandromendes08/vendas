@@ -242,9 +242,80 @@
                 "summary": "Listar todos os usuarios com ID",
                 "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
                 "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    },
+                    {
+                        "in":"body",
+                        "require":true,
+                        "schema":{
+                            "$ref":"#/components/schema/Usuario"
+                        },
+                        "name":"body"
+                    }
+                ],
                 "responses":{
                     "200":{
-                        "description":"aaa"
+                        "description":"retorna o objeto atualizado no banco",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }    
             }
@@ -259,9 +330,406 @@
                 "summary": "Listar todos os usuarios com ID",
                 "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
                 "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    }
+                  ],
                 "responses":{
                     "200":{
-                        "description":"aaa"
+                        "description":"retorna o objeto deletado do banco",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }    
+            }
+        },
+        "/usuario/addAdress/{id}": {
+            "post":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Adiciona o endereço no usuário",
+                "description": "ADICIONA ENDERECOS NO USUARIO INFORMADO",
+                "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    },
+                    {
+                        "in":"body",
+                        "require":true,
+                        "schema":{
+                            "$ref":"#/components/schema/Usuario"
+                        },
+                        "name":"body"
+                    }
+                  ],
+                "responses":{
+                    "201":{
+                        "description":"retorna um usuário com seu novo endereço",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/userAddress"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+
+        },
+        "/usuario/removeAddress/{id}": {
+            "delete":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Remove o endereço no usuário",
+                "description": "REMOVE ENDERECOS DO USUARIO INFORMADO",
+                "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um usuário com seu novo endereço removido",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/userAddress"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        },
+        "/usuario/addFavProduct/{id}": {
+            "post":{
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Adiciona o produto favorito do usuário",
+                "description": "REMOVO OS PRODUTOS FAVORITOS DO USUARIO",
+                "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    },
+                    {
+                        "in":"body",
+                        "require":true,
+                        "schema":{
+                            "$ref":"#/components/schema/ProductFav"
+                        },
+                        "name":"body"
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"retorna um usuário com seu produto favorito removido",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        },
+        "/usuario/removeFavProduct/{id}": {
+            "delete": {
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Listar todos os usuarios com ID",
+                "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
+                "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"query",
+                        "require":true,
+                        "schema":{
+                            "type":"integer"
+                        },
+                        "name":"id"
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"retorna o objeto deletado do banco",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Erro na autenticação, verifique o token",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum usuário encontrado",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }    
             }
@@ -332,11 +800,50 @@
                     }
                 }
             }
+        },
+        "UserAdress":{
+            "type": "array",
+            "items": {
+                "properties": {
+                    "rua": {
+                        "type": "string"
+                    },
+                    "numero": {
+                        "type": "string"
+                    },
+                    "complemento": {
+                        "type": "string"
+                    },
+                    "CEP": {
+                        "type": "string"
+                    },
+                    "createAt": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "ProductFav":{
+         "type":"array",
+            "items":{
+                "properties":{
+                    "_id": {
+                    "type":"string"
+                    },
+                    "createAt": {
+                     "type":"string"
+                    }
+                }
+            }
         }
     }
         
     }
 }
+}
+}
+}
+
 
 
     
