@@ -1,0 +1,18 @@
+{
+    "clientName": "Thunder Client",
+    "environmentName": "vendas",
+    "environmentId": "0ebd968d-1eee-40ad-9472-7a13d30f1048",
+    "dateExported": "2024-05-19T16:45:20.852Z",
+    "version": "1.2",
+    "variables": [
+        {
+            "name": "BaseURL",
+            "value": "http://localhost:"
+        },
+        {
+            "name": "Port",
+            "value": "4000"
+        }
+    ],
+    "ref": "MQT8oZpRSxnh4ISfrNdRFKbh8kzkCOAXt5dkVt1s542ijxzOGqTChf52g1jvsaAx"
+}
