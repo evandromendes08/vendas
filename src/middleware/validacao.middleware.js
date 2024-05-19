@@ -20,6 +20,33 @@ const validaUsuario = (req, res, next) => {
     return next();
 } 
 
+const validaEndereco = (req, res, next) => {
+    let erros = []; //variavel para acumular erros
+
+    req.body.map((value, key) =>{
+        if(!value.rua){
+            erros.push(`'${key+1} - rua'`)
+        }
+        if(!value.numero){
+            erros.push(`'${key+1} - numero'`)
+        }
+        if(!value.CEP){
+            erros.push(`'${key+1} - CEP'`)
+        }
+    });
+
+//testando quantos erros temos e verificar o que fazer
+    if(erros.length == 0){
+        return next();
+    }else{
+        if(erros.length > 1){
+            return res.status(400).send({ message: `Os campos ${erros} devem ser preenchidos!`}); 
+        }else{
+        return res.status(400).send({ message: `O campo ${erros} deve ser preenchido!`}); 
+        }
+    }
+}
+
 const validaProduto = (req, res, next) => {
     let erros = []; //variavel para acumular erros
     if(!req.body.nome){
@@ -103,21 +130,16 @@ const validaCarrinho = (req, res, next) => {
     }
 }
 
-// const validaEndereco = (req, res, next) => {
-//     if(!req.body.rua){
-//         return res.status(400).send({ message: `O campo 'rua' deve ser preenchido`});
-//     }
-//     if(!req.body.numero){
-//         return res.status(400).send({ message: `O campo 'numero' deve ser preenchido`});
-//     }
-//     if(!req.body.CEP){
-//         return res.status(400).send({ message: `O campo 'CEP' deve ser preenchido`});
-//     }
-//     return next();
-// }
-
-const validaId = (req, res, next) => {
+const validaIdParams = (req, res, next) => {
     if(ObjectId.isValid(req.param.id)){
+        return next();
+    }else{
+        return res.status(400).send({ message: `O ID não corresponde a um válido!`});
+    }
+}
+
+const valida_IdBody = (req, res, next) => {
+    if(ObjectId.isValid(req.param._id)){
         return next();
     }else{
         return res.status(400).send({ message: `O ID não corresponde a um válido!`});
@@ -145,13 +167,43 @@ const validaLogin = (req, res, next) => {
     } 
 }
 
+const validaProdutosCarrinhoPedido = (req, res, next) => {
+    let erros = []; //variavel para acumular erros
+
+    req.body.produtos.map((value, key) =>{
+        if(!value._id){
+            erros.push(`'${key+1} - _id'`)
+        }
+        if(!ObjectId.isValid(value._id)){
+            erros.push(`'${key+1} - Tipo Inválido'`)
+        }
+        if(!value.quantidade){
+            erros.push(`'${key+1} - quantidade'`)
+        }
+       
+    });
+
+//testando quantos erros temos e verificar o que fazer
+    if(erros.length == 0){
+        return next();
+    }else{
+        if(erros.length > 1){
+            return res.status(400).send({ message: `Os campos ${erros} devem ser preenchidos!`}); 
+        }else{
+        return res.status(400).send({ message: `O campo ${erros} deve ser preenchido!`}); 
+        }
+    }
+}
+
 module.exports = {
     validaUsuario,
-    validaProduto,
-    //validaEndereco,    
+    validaEndereco,
+    validaProduto,    
     validaPedido,
     validaCategoria,
     validaCarrinho,
-    validaId,
-    validaLogin
+    validaLogin,
+    validaIdParams,
+    valida_IdBody,
+    validaProdutosCarrinhoPedido
 }
