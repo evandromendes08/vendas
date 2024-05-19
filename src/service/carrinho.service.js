@@ -4,8 +4,8 @@ const findCarrinhoByIdService = async (id) => {
   return await Carrinho.findById(id);
 };
 
-const findAllCarrinhoService = async () => {
-  return await Carrinho.find();
+const findAllCarrinhoService = async (limit, offset) => {
+  return await Carrinho.find().limit(limit).skip(offset);
 };
 
 const createCarrinhoService = async (body) => {
