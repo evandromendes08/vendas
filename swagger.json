@@ -1,0 +1,73 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Pizzaria",
+      "description": "API para CRUD da Pizzaria e das compras",
+      "termsOfService": "",
+      "contact": {
+        "email": "evandro@email.com.br"
+      },
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:4000/",
+        "description": "API de Pizzaria, teste local"
+      },
+      {
+        "url": "https://aws.amazon.com.br/asdfa/pizzaria",
+        "description": "API de produção CLOUD"
+      }
+    ],
+    "paths": {
+      "/usuario/findAll": {
+        "get": {
+          "summary": "Listar todos os usuarios da API",
+          "description": "LISTA DE TODOS OS USUÁRIOS",
+          "tags": ["Usuarios"],
+          "responses": {
+            "200": {"description": "Ok, tarefa executada com sucesso"},
+            "401": {"description": "Erro na autenticação, verifique o token"},
+            "404": {"description": "Nenhum usuário encontrado"},
+            "500": {"description": "Verifique o servidor"}
+          }
+        }
+      },
+      "/usuario/find": {
+        "get": {
+          "summary": "Listar todos os usuarios com ID",
+          "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
+          "tags": ["Usuarios"],
+          "responses": {
+            "200": {"description": "Ok, tarefa executada com sucesso"},
+            "401": {"description": "Erro na autenticação, verifique o token"},
+            "404": {"description": "Nenhum usuário encontrado"},
+            "500": {"description": "Verifique o servidor"}
+          }
+        }
+      },
+
+
+          "responses": {
+            "404": {
+              "description": "Not Found"
+            },
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Paletas"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+
+    

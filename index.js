@@ -8,6 +8,7 @@ const produto = require("./src/router/produto.router");//rota do produto
 const categoria = require("./src/router/categoria.router");//rota da categoria
 const carrinho = require("./src/router/carrinho.router");//rota do carrinho
 const pedido = require("./src/router/pedido.router");//rota de pedido
+const docs = require("./src/router/docs.router");//rota de docs
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/produto", produto);//chamando as rotas do produto
 app.use("/categoria", categoria);//chamando as rotas categoria
 app.use("/carrinho", carrinho);//chamando as rotas carrinho
 app.use("/pedido", pedido);//chamando as rotas dos pedido
+app.use("/docs", docs);//chamando as rotas dos docs
 
 app.get("/", (req, res) => {
     res.send({
