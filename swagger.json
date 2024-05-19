@@ -22,52 +22,321 @@
     "paths": {
       "/usuario/findAll": {
         "get": {
+            "security":[
+                {
+                    "bearerAuth":[]
+                }
+            ],
           "summary": "Listar todos os usuarios da API",
           "description": "LISTA DE TODOS OS USUÁRIOS",
           "tags": ["Usuarios"],
+          "parameters":[
+            {
+                "in":"query",
+                "schema":{
+                    "type":"integer"
+                },
+                "name":"limit"
+            },{
+                "in":"query",
+                "schema":{
+                    "type":"integer"
+                },
+                "name":"offset"
+            }
+          ],
           "responses": {
-            "200": {"description": "Ok, tarefa executada com sucesso"},
-            "401": {"description": "Erro na autenticação, verifique o token"},
-            "404": {"description": "Nenhum usuário encontrado"},
-            "500": {"description": "Verifique o servidor"}
-          }
-        }
-      },
-      "/usuario/find": {
-        "get": {
-          "summary": "Listar todos os usuarios com ID",
-          "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
-          "tags": ["Usuarios"],
-          "responses": {
-            "200": {"description": "Ok, tarefa executada com sucesso"},
-            "401": {"description": "Erro na autenticação, verifique o token"},
-            "404": {"description": "Nenhum usuário encontrado"},
-            "500": {"description": "Verifique o servidor"}
-          }
-        }
-      },
-
-
-          "responses": {
-            "404": {
-              "description": "Not Found"
-            },
             "200": {
-              "description": "OK",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Paletas"
+                "description": "Ok, tarefa executada com sucesso",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "$ref":"#/components/schema/Usuario"
+                            }
+                        }
                     }
-                  }
                 }
-              }
+            },
+            "401": {
+                "description": "Erro na autenticação, verifique o token",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Nenhum usuário encontrado",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Verifique o servidor",
+                "content":{
+                    "application/json":{
+                        "schema":{
+                            "type":"object",
+                            "properties":{
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
             }
           }
         }
-      }
+      },
+      "/usuario/find/{id}": {
+        "get": {
+            "security":[
+                {
+                    "bearerAuth":[]
+                }
+            ],
+          "summary": "Listar todos os usuarios com ID",
+          "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
+          "tags": ["Usuarios"],
+          "parameters":[
+            {
+                "in":"query",
+                "require":true,
+                "schema":{
+                    "type":"integer"
+                },
+                "name":"id"
+            }
+          ],
+          "responses": {
+                "200": {
+                    "description": "Ok, tarefa executada com sucesso",
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schema/Usuario"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "description": "Erro na autenticação, verifique o token",
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Nenhum usuário encontrado",
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "500": {
+                    "description": "Verifique o servidor",
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/usuario/create": {
+            "post": {
+                "summary": "Criando Novo Usuário",
+                "description": "ROTA RESPONSÁVEL POR CRIAR NOVO USUÁRIO",
+                "tags": ["Usuarios"],
+                "parameters":[
+                    {
+                        "in":"body",
+                        "require":true,
+                        "schema":{
+                            "$ref":"#/components/schema/Usuario"
+                        },
+                        "name":"body"
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"retorna o objeto criado no banco",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "$ref":"#/components/schema/Usuario"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Verifique o servidor",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }    
+            }
+        },
+        "/usuario/update/{id}": {
+            "put": {
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Listar todos os usuarios com ID",
+                "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
+                "tags": ["Usuarios"],
+                "responses":{
+                    "200":{
+                        "description":"aaa"
+                    }
+                }    
+            }
+        },
+        "/usuario/delete/{id}": {
+            "delete": {
+                "security":[
+                    {
+                        "bearerAuth":[]
+                    }
+                ],
+                "summary": "Listar todos os usuarios com ID",
+                "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
+                "tags": ["Usuarios"],
+                "responses":{
+                    "200":{
+                        "description":"aaa"
+                    }
+                }    
+            }
+        }
+    },
+
+    "components": {
+        "securitySchema":{
+            "bearerAuth":{
+                "type":"http",
+                "schema": "bearer",
+                "bearerFormat":"JWT"
+            }
+        },
+        "schema": {
+            "Usuario":{
+                "type": "object",
+                "properties":{
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "imagem": {
+                        "type": "string"
+                    },
+                    "enderecos": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "rua": {
+                                    "type": "string"
+                                },
+                                "numero": {
+                                    "type": "string"
+                                },
+                                "complemento": {
+                                    "type": "string"
+                                },
+                                "CEP": {
+                                    "type": "string"
+                                },
+                                "createAt": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "produtos_fav": {
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "_id": {
+                                    "type":"string"
+                                },
+                                "createAt": {
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "createAt":{
+                        "type":"string"
+                    },
+                    "admin":{
+                        "type":"boolean"
+                    }
+                }
+            }
+        }
+    }
+        
+    }
+}
 
 
     
