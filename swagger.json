@@ -54,7 +54,7 @@
                             "type":"array",
                             "items":{
                                 "type":"object",
-                                "$ref":"#/components/schema/Usuario"
+                                "$ref":"#/components/schemas/Usuario"
                             }
                         }
                     }
@@ -108,7 +108,7 @@
           }
         }
       },
-      "/usuario/find/{id}": {
+      "/usuario/findById/{id}": {
         "get": {
             "security":[
                 {
@@ -118,16 +118,18 @@
           "summary": "Listar todos os usuarios com ID",
           "description": "LISTA DE USUÁRIOS LOCALIZADOS ATRAVES DE UM ID",
           "tags": ["Usuarios"],
-          "parameters":[
-            {
-                "in":"query",
-                "require":true,
-                "schema":{
-                    "type":"integer"
-                },
-                "name":"id"
-            }
-          ],
+          "requestBody":
+          {
+            "content":{
+                "application/json":{
+                    "schema":{
+                        "type":"object",
+                        "$ref":"#/components/schemas/Usuario"
+                    }
+                }
+            },
+            "require":true
+          },
           "responses": {
                 "200": {
                     "description": "Ok, tarefa executada com sucesso",
@@ -135,7 +137,7 @@
                         "application/json":{
                             "schema":{
                                 "type":"object",
-                                "$ref":"#/components/schema/Usuario"
+                                "$ref":"#/components/schemas/Usuario"
                             }
                         }
                     }
@@ -197,7 +199,7 @@
                         "in":"body",
                         "require":true,
                         "schema":{
-                            "$ref":"#/components/schema/Usuario"
+                            "$ref":"#/components/schemas/Usuario"
                         },
                         "name":"body"
                     }
@@ -209,7 +211,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/Usuario"
+                                    "$ref":"#/components/schemas/Usuario"
                                 }
                             }
                         }
@@ -244,22 +246,26 @@
                 "tags": ["Usuarios"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "require":true,
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id"
-                    },
-                    {
-                        "in":"body",
-                        "require":true,
-                        "schema":{
-                            "$ref":"#/components/schema/Usuario"
-                        },
-                        "name":"body"
                     }
                 ],
+                "requestBody":
+                {
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/Usuario"
+                            }
+                        }
+                    },
+                    "require":true
+                },
                 "responses":{
                     "200":{
                         "description":"retorna o objeto atualizado no banco",
@@ -267,7 +273,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/Usuario"
+                                    "$ref":"#/components/schemas/Usuario"
                                 }
                             }
                         }
@@ -320,7 +326,7 @@
                 }    
             }
         },
-        "/usuario/delete/{id}": {
+        "/usuario/remove/{id}": {
             "delete": {
                 "security":[
                     {
@@ -332,10 +338,10 @@
                 "tags": ["Usuarios"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "require":true,
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id"
                     }
@@ -347,7 +353,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/Usuario"
+                                    "$ref":"#/components/schemas/Usuario"
                                 }
                             }
                         }
@@ -412,22 +418,26 @@
                 "tags": ["Usuarios"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "require":true,
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id"
-                    },
-                    {
-                        "in":"body",
-                        "require":true,
-                        "schema":{
-                            "$ref":"#/components/schema/Usuario"
-                        },
-                        "name":"body"
                     }
-                  ],
+                ],
+                "requestBody":
+                {
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/userAddress"
+                            }
+                        }
+                    },
+                    "require":true
+                },
                 "responses":{
                     "201":{
                         "description":"retorna um usuário com seu novo endereço",
@@ -435,7 +445,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/userAddress"
+                                    "$ref":"#/components/schemas/userAddress"
                                 }
                             }
                         }
@@ -488,7 +498,7 @@
             }
 
         },
-        "/usuario/removeAddress/{id}": {
+        "/usuario/removeAddress/": {
             "delete":{
                 "security":[
                     {
@@ -498,16 +508,25 @@
                 "summary": "Remove o endereço no usuário",
                 "description": "REMOVE ENDERECOS DO USUARIO INFORMADO",
                 "tags": ["Usuarios"],
-                "parameters":[
-                    {
-                        "in":"query",
-                        "require":true,
-                        "schema":{
-                            "type":"integer"
-                        },
-                        "name":"id"
-                    }
-                  ],
+                "requestBody":
+                {
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "addressId": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "require":true
+                },
                 "responses":{
                     "200":{
                         "description":"retorna um usuário com seu novo endereço removido",
@@ -515,7 +534,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/userAddress"
+                                    "$ref":"#/components/schemas/userAddress"
                                 }
                             }
                         }
@@ -579,22 +598,26 @@
                 "tags": ["Usuarios"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "require":true,
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id"
-                    },
-                    {
-                        "in":"body",
-                        "require":true,
-                        "schema":{
-                            "$ref":"#/components/schema/ProductFav"
-                        },
-                        "name":"body"
                     }
-                  ],
+                ],
+                "requestBody":
+                {
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "$ref":"#/components/schemas/ProductFav"
+                            }
+                        }
+                    },
+                    "require":true
+                },
                 "responses":{
                     "200":{
                         "description":"retorna um usuário com seu produto favorito removido",
@@ -602,7 +625,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/Usuario"
+                                    "$ref":"#/components/schemas/Usuario"
                                 }
                             }
                         }
@@ -666,14 +689,30 @@
                 "tags": ["Usuarios"],
                 "parameters":[
                     {
-                        "in":"query",
+                        "in":"path",
                         "require":true,
                         "schema":{
-                            "type":"integer"
+                            "type":"string"
                         },
                         "name":"id"
                     }
                   ],
+                  "requestBody":
+                  {
+                      "content":{
+                          "application/json":{
+                              "schema":{
+                                  "type":"object",
+                                  "properties":{
+                                      "_id": {
+                                          "type": "string"
+                                      }
+                                    }
+                                }
+                            }
+                        },
+                      "require":true
+                    },
                 "responses":{
                     "200":{
                         "description":"retorna o objeto deletado do banco",
@@ -681,7 +720,7 @@
                             "application/json":{
                                 "schema":{
                                     "type":"object",
-                                    "$ref":"#/components/schema/Usuario"
+                                    "$ref":"#/components/schemas/Usuario"
                                 }
                             }
                         }
