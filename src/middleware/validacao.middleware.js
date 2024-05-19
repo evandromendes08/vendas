@@ -1,3 +1,4 @@
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const validaUsuario = (req, res, next) => {
     //testa um erro de cada vez
@@ -102,24 +103,33 @@ const validaCarrinho = (req, res, next) => {
     }
 }
 
-const validaEndereco = (req, res, next) => {
-    if(!req.body.rua){
-        return res.status(400).send({ message: `O campo 'rua' deve ser preenchido`});
+// const validaEndereco = (req, res, next) => {
+//     if(!req.body.rua){
+//         return res.status(400).send({ message: `O campo 'rua' deve ser preenchido`});
+//     }
+//     if(!req.body.numero){
+//         return res.status(400).send({ message: `O campo 'numero' deve ser preenchido`});
+//     }
+//     if(!req.body.CEP){
+//         return res.status(400).send({ message: `O campo 'CEP' deve ser preenchido`});
+//     }
+//     return next();
+// }
+
+const validaId = (req, res, next) => {
+    if(ObjectId.isValid(req.param.id)){
+        return next();
+    }else{
+        return res.status(400).send({ message: `O ID não corresponde a um válido!`});
     }
-    if(!req.body.numero){
-        return res.status(400).send({ message: `O campo 'numero' deve ser preenchido`});
-    }
-    if(!req.body.CEP){
-        return res.status(400).send({ message: `O campo 'CEP' deve ser preenchido`});
-    }
-    return next();
 }
 
 module.exports = {
     validaUsuario,
     validaProduto,
-    validaEndereco,    
+    //validaEndereco,    
     validaPedido,
     validaCategoria,
-    validaCarrinho
+    validaCarrinho,
+    validaId
 }
