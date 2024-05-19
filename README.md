@@ -1,6 +1,6 @@
 # vendas
 
-O código do mais novo market place
+O código do mais novo sistema para pizzaria
 
 ## Como instalar
 
